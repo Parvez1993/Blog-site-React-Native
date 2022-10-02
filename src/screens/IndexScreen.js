@@ -1,33 +1,69 @@
-import {View, Text, Button, TouchableOpacity, FlatList} from 'react-native';
+import {
+  View,
+  Text,
+  Button,
+  TouchableOpacity,
+  FlatList,
+  StyleSheet,
+} from 'react-native';
 import React from 'react';
 import {useBlogStore} from '../ContextApi';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 const IndexScreen = () => {
-  const {blogs, addBlogPosts} = useBlogStore();
-
-  console.log(blogs);
+  const {blogs, addBlogPosts, handleDelete} = useBlogStore();
 
   return (
     <View>
-      <Text>Index Screen abc</Text>
-      <Button
-        onPress={addBlogPosts}
-        title="Add Random Blog"
-        color="#841584"
-        accessibilityLabel="Learn more about this purple button"
-      />
-      <Icon name="star-rate" size={20} />
-      <Icon name="star-rate" size={20} />
-      <Icon name="star-rate" size={20} />
+      <View style={styles.buttonSection}>
+        <Button
+          onPress={addBlogPosts}
+          title="Add Random Blog"
+          accessibilityLabel="Learn more about this purple button"
+          style={styles.buttonStyle}
+          color="green"
+        />
+      </View>
+
       <FlatList
         data={blogs}
-        keyExtractor={blogs => blogs.title}
+        keyExtractor={blogs => blogs.id}
         renderItem={({item}) => {
-          return <Text>{item.title}</Text>;
+          return (
+            <View style={styles.row}>
+              <Text>{item.title}</Text>
+              <Icon
+                name="delete"
+                size={40}
+                onPress={() => handleDelete(item.id)}
+              />
+            </View>
+          );
         }}
       />
     </View>
   );
 };
 
+const styles = StyleSheet.create({
+  row: {
+    marginHorizontal: 50,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    borderWidth: 5,
+    marginVertical: 5,
+    padding: 5,
+  },
+
+  buttonSection: {
+    width: '100%',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: 40,
+  },
+  buttonStyle: {
+    backgroundColor: 'green',
+    color: 'white',
+  },
+});
 export default IndexScreen;
