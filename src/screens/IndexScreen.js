@@ -9,7 +9,7 @@ import {
 import React from 'react';
 import {useBlogStore} from '../ContextApi';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-const IndexScreen = () => {
+const IndexScreen = ({navigation}) => {
   const {blogs, addBlogPosts, handleDelete} = useBlogStore();
 
   return (
@@ -29,14 +29,17 @@ const IndexScreen = () => {
         keyExtractor={blogs => blogs.id}
         renderItem={({item}) => {
           return (
-            <View style={styles.row}>
-              <Text>{item.title}</Text>
-              <Icon
-                name="delete"
-                size={40}
-                onPress={() => handleDelete(item.id)}
-              />
-            </View>
+            <TouchableOpacity
+              onPress={() => navigation.navigate('single', {id: item.id})}>
+              <View style={styles.row}>
+                <Text>{item.title}</Text>
+                <Icon
+                  name="delete"
+                  size={40}
+                  onPress={() => handleDelete(item.id)}
+                />
+              </View>
+            </TouchableOpacity>
           );
         }}
       />
