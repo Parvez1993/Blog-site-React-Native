@@ -33,11 +33,19 @@ const IndexScreen = ({navigation}) => {
               onPress={() => navigation.navigate('single', {id: item.id})}>
               <View style={styles.row}>
                 <Text>{item.title}</Text>
-                <Icon
-                  name="delete"
-                  size={40}
-                  onPress={() => handleDelete(item.id)}
-                />
+                <View style={{flexDirection: 'row'}}>
+                  <Icon
+                    name="delete"
+                    color="#B6090C"
+                    size={40}
+                    onPress={() => handleDelete(item.id)}
+                  />
+                  <Icon
+                    name="create"
+                    size={40}
+                    onPress={() => navigation.navigate('edit', {id: item.id})}
+                  />
+                </View>
               </View>
             </TouchableOpacity>
           );

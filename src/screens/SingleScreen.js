@@ -7,20 +7,25 @@ const SingleScreen = ({route}) => {
   let [singleData, setSingleData] = useState('');
   const {blogs} = useBlogStore();
 
-  console.log(id);
-
-  console.log(blogs);
-
   useEffect(() => {
     let findData = blogs.find(item => item.id === id);
     setSingleData(findData);
   }, [singleData]);
 
-  console.log(singleData);
-
   return (
-    <View>
-      <Text>{singleData?.title}</Text>
+    <View style={{marginHorizontal: 30, marginTop: 30}}>
+      <Text style={{fontSize: 20, fontWeight: '800', marginVertical: 10}}>
+        {singleData?.title}
+      </Text>
+      <Text
+        style={{
+          fontSize: 15,
+          fontWeight: '400',
+          marginVertical: 10,
+          lineHeight: 20,
+        }}>
+        {singleData?.content}
+      </Text>
     </View>
   );
 };
